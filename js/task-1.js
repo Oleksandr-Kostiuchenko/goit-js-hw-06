@@ -1,44 +1,32 @@
-//TODO: Напиши стрілочну функцію getUserNames(users), яка прийматиме один параметр users — масив об’єктів користувачів.
-//? Функція має повертати масив імен усіх користувачів (властивість name) із масиву users.
+//TODO: Виконай рефакторинг методів об'єкта customer, розставивши відсутні this під час звернення до властивостей об'єкта.
+//? Перед звільненням розробник зламав вихідний код управління акаунтами користувачів нашого сервісу доставки їжі. Виконай рефакторинг методів об'єкта customer, розставивши відсутні this під час звернення до властивостей об'єкта.
 
-const getUserNames = users => users.map(person => person.name);
+const customer = {
+    username: "Mango",
+    balance: 24000,
+    discount: 0.1,
+    orders: ["Burger", "Pizza", "Salad"],
 
-console.log(
-    getUserNames([
-    {
-        name: "Moore Hensley",
-        email: "moorehensley@indexia.com",
-        balance: 2811
+    getBalance() {
+        return this.balance;
     },
-    {
-        name: "Sharlene Bush",
-        email: "sharlenebush@tubesys.com",
-        balance: 3821
+    getDiscount() {
+        return this.discount;
     },
-    {
-        name: "Ross Vazquez",
-        email: "rossvazquez@xinware.com",
-        balance: 3793
+    setDiscount(value) {
+        this.discount = value;
     },
-    {
-        name: "Elma Head",
-        email: "elmahead@omatom.com",
-        balance: 2278
+    getOrders() {
+        return this.orders;
     },
-    {
-        name: "Carey Barr",
-        email: "careybarr@nurali.com",
-        balance: 3951
+    addOrder(cost, order) {
+        this.balance -= cost - cost * this.discount;
+        this.orders.push(order);
     },
-    {
-        name: "Blackburn Dotson",
-        email: "blackburndotson@furnigeer.com",
-        balance: 1498
-    },
-    {
-        name: "Sheree Anthony",
-        email: "shereeanthony@kog.com",
-        balance: 2764
-    },
-    ])
-);
+};
+
+customer.setDiscount(0.15);
+console.log(customer.getDiscount());
+customer.addOrder(5000, "Steak");
+console.log(customer.getBalance());
+console.log(customer.getOrders());
